@@ -15,7 +15,8 @@ function onSearch(e) {
   e.preventDefault();
   const searchQuery = refs.searchForm.elements.query.value;
   refs.cardContainer.innerHTML = "";
-  if (!searchQuery) return;
+  if (!searchQuery)
+    return;
   API(searchQuery).then(onFetchSuccess).catch(onFetchError);
 }
 
