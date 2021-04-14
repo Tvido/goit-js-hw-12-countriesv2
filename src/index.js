@@ -11,7 +11,7 @@ const refs = {
   searchForm: document.querySelector(".js-search-form"),
 };
 
-refs.searchForm.addEventListener("input", debounce(onSearch, 1500));
+refs.searchForm.addEventListener('input', debounce(onSearch, 1500));
 
 function onSearch(e) {
   e.preventDefault();
@@ -20,7 +20,7 @@ function onSearch(e) {
   refs.cardContainer.innerHTML = "";
   if (!searchQuery)
     return;
-  API.fetchCountries(searchQuery)
+  API(searchQuery)
     .then(onFetchSuccess)
     .catch(onFetchError)
     .finally(() => form.reset());
