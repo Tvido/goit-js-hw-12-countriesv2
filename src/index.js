@@ -1,30 +1,42 @@
-// import countryCardTpl from './templates/items.hbs';
-// import countryList from './templates/list.hbs'
-
 import "./css/common.css";
-import getRefs  from "./js/getRefs";
+// import refs  from "./js/getRefs";
 import API from "./js/fetchCountries";
 import { renderCountryList, renderCountryCard } from "./js/render";
 import "./js/pnotify";
 import { error } from "@pnotify/core";
 import debounce from "lodash.debounce";
 
-const refs = getRefs ();
+const refs = {
+  cardContainer: document.querySelector(".js-card-container"),
+  searchForm: document.querySelector(".js-search-form"),
+};
 
 refs.searchForm.addEventListener("input", debounce(onSearch, 1500));
 
 function onSearch(e) {
   e.preventDefault();
   const form = e.currentTarget;
-  const searchQuery = form.searchForm.elements.query.value;
+  const searchQuery = refs.searchForm.elements.query.value;
   refs.cardContainer.innerHTML = "";
   if (!searchQuery)
     return;
-  API(searchQuery)
+  API.fetchCountries(searchQuery)
     .then(onFetchSuccess)
     .catch(onFetchError)
     .finally(() => form.reset());
 }
+
+// function onSearch(e) {
+//   const searchQuery = e.target.value.trim();
+//   if (searchQuery === '') {
+//     refs.countriesWrapper.innerHTML = '';
+//     return;
+//   }
+// API.fetchCountries(searchQuery)
+//     .then(onFetchSuccess)
+//     .catch(onFetchError)
+//     .finally(() => form.reset());
+// }
 
 function onFetchSuccess(country) {
   if (data.length === 1) {
